@@ -12,4 +12,4 @@ ORDER BY employee_role.id, salary ASC;
 SELECT department_name AS Department FROM department;
 
 -- View All Roles
-SELECT title AS Role FROM employee_role;
+SELECT department_id AS "Department ID", department_name AS "Department";
