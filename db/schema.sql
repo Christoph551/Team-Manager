@@ -1,49 +1,31 @@
-DROP DATABASE IF EXISTS team_manager;
-CREATE DATABASE team_manager;
+DROP DATABASE IF EXISTS team_manager_db;
+CREATE DATABASE team_manager_db;
 
-USE team_manager;
+USE team_manager_db;
 
-CREATE TABLE employeeList (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+CREATE TABLE department (
+    id INT NOT NULL AUTO_INCREMENT,
+    department_name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE employee_role (
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    salary DECIMAL(10,2) NOT NULL,
+    department_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (department_id) REFERENCES department(id)
+);
+
+CREATE TABLE employee (
+    id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-
-    manager_id INT NOT NULL
+    role_id INT NOT NULL,
+    manager_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id),
+    FOREIGN KEY (role_id) REFERENCES employee_role(id)
 );
-
-
-CREATE TABLE roleList (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(30) NOT NULL,
-    salary INT NOT NULL,
-    role_id INT NOT NULL,    
-    FOREIGN KEY (role_id)
-    REFERENCES employeeList(id)
-);
-
-
-CREATE TABLE departmentList (
-    department_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    department VARCHAR(30) NOT NULL,
-    FOREIGN KEY (department_id)
-    REFERENCES roleList(id)
-);
-
-
-
-/*
-What would you like to do?
-View All Employees
-    id, first_name, last_name, their manager's id
-Add Employee
-Update Employee Role
-View All Roles
-    Sales Lead, Salesperson, Lead Engineer, Account Manager, Accountant, Legal Team Lead, Lawyer
-    *** Each role should have an assigned salary ***
-Add Role
-View All Departments
-    Engineering, Finanace, Legal, Sales
-Add Department
-Quit
-*/
-
